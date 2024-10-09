@@ -1,3 +1,9 @@
-com\mycompany\westernstories\Humain.class
+people\Sheriff.class
+people\HorsLaLoi.class
+people\Ripoux.class
+people\Barman.class
+people\Cowboy.class
 com\mycompany\westernstories\WesternStories.class
-com\mycompany\westernstories\Bandit.class
+people\Humain.class
+people\Indien.class
+people\Bandit.class
