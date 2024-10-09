@@ -3,7 +3,13 @@
  */
 
 package com.mycompany.westernstories;
-import people.Bandit; //exemple of import
+//ppl (no need of parents)
+import people.Bandit;
+import people.Barman;
+import people.Cowboy;
+import people.Indien;
+import people.Ripoux;
+import people.Sheriff;
 
 
 /**
