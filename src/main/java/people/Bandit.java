@@ -11,6 +11,6 @@ import people.Humain;
  * @author Marco
  */
 public abstract class Bandit extends Humain {
-    private String alias; //un bandit obtient un surnom
+    private String nickname; //un bandit obtient un surnom
     
 }

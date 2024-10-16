@@ -8,6 +8,5 @@ package people;
  *
  * @author Marco
  */
-public class HorsLaLoi {
-    
+public interface HorsLaLoi {
 }

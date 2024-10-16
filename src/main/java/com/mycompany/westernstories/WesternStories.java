@@ -6,10 +6,10 @@ package com.mycompany.westernstories;
 
 import people.Bandit;
 import people.Barman;
-import people.Cowboy;
 //import people.HorsLaLoi; //interface of Ripoux & Bandot
 //import people.Human; //parent of everything
 import people.Indien;
+import people.Marshall;
 import people.Ripoux;
 import people.Sheriff;
 
@@ -30,25 +30,40 @@ import java.util.InputMismatchException;
 public class WesternStories {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
-        int number = 0;
+        //CHARACTER CREATION
+        //name
+        Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
-
-        // Loop until a valid number is entered
-        while (!validInput) {
+        while (!validInput) { //wait until valid
             try {
-                System.out.print("Please enter a number: ");
-                number = scanner.nextInt();  // Read an integer from the user
-                validInput = true;  // If input is valid, exit the loop
+                System.out.print("Enter the name and surname of your character (e.g., Jesse James): ");
+                String fullName = scanner.nextLine();
+                // Split the input string into name and surname using a space as the delimiter
+                String[] nameParts = fullName.split(" ");
+
+                // verif 2 parts
+                if (nameParts.length != 2) {
+                    throw new InputMismatchException("You must enter exactly two words for name and surname.");
+                }
+
+                // Extract name and surname
+                String name = nameParts[0];
+                String surname = nameParts[1];
+
+                // Output the name and surname
+                System.out.println("Name: " + name);
+                System.out.println("Surname: " + surname);
+
+                validInput = true; // Input is valid, exit the loop
+
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.next();  // Clear the invalid input from the scanner
+                // Handle wrong number of inputs or incorrect format
+                System.out.println("Error: " + e.getMessage() + " Please try again.");
+            } catch (Exception e) {
+                // Handle any other unexpected exceptions
+                System.out.println("Unexpected error. Please try again.");
             }
         }
-
-        // Output the entered number
-        System.out.println("You entered: " + number);
-        
-        scanner.close();  // Close the scanner
+        scanner.close();
     }
 }

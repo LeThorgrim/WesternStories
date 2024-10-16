@@ -8,6 +8,6 @@ package people;
  *
  * @author Marco
  */
-public class Cowboy {
+public class Marshall {
     
 }
