@@ -109,6 +109,7 @@ public class WesternStories {
         Bandit player = new Bandit(fullName, favDrink, "player", "");
         //END CHARACTER CREATION
         
+        //USE GARBAGE CLEANER (not done)
         
         //tests
         myStory.blankLn(10);
