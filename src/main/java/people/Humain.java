@@ -13,21 +13,26 @@ public abstract class Humain {
     private String name; 
     private String boissonFav;
     private String attribut; //trait de caractère influent sur l'histoire
-    private boolean isHurt; //est blessé? peut être utile
+    private int hp; //est blessé? peut être utile
     
     //CONSTRUCTORS
     public Humain(){ //default
-        this.name = "John Doe";
-        this.boissonFav = "Eau";
-        this.attribut = "Passif";
-        this.isHurt = false;
+        this.name = "Jesse James";
+        this.boissonFav = "Water";
+        this.attribut = "Passive";
+        this.hp = 1;
     }
     
     public Humain(String mName, String mFB, String Attribut){ //custom creator
         this.name = mName;
-        this.boissonFav = mFB;
+        if(isValidDrink(mFB)){
+            this.boissonFav = mFB;
+        }
+        else{
+            this.boissonFav = "Water";
+        }
         this.attribut = Attribut;
-        this.isHurt = false;
+        this.hp = 10;
     }
     
     //METHODS
@@ -37,7 +42,28 @@ public abstract class Humain {
     public String getName(){return this.name;}
     public String getBFav(){return this.boissonFav;}
     public String getAttribut(){return this.attribut;}
-    public boolean getHurt(){return this.isHurt;}
-    
-    public void setHurt(boolean bool){this.isHurt=bool;}
+    public int getHP(){return this.hp;}
+    private boolean isValidDrink(String drink) {
+        return drink.equals("beer") || drink.equals("wine") || drink.equals("gin") || drink.equals("whiskey");
+    }
+    public void setFavDrink(String favDr){
+        if(isValidDrink(favDr)){
+            this.boissonFav = favDr;
+        }
+    }
+    public void setHP(int nb){this.hp=nb;}
+    public void addHP(int nb){
+        this.hp += nb;
+        if(this.hp > 10){
+            this.hp = 10;
+        }
+    }
+    public void rmvHP(int nb){
+        if(this.hp < nb){
+            this.hp = 0;
+        }
+        else{
+            this.hp -= nb;
+        }
+    }
 }

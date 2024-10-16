@@ -1,3 +1,4 @@
+people\Marshall.class
 places\Rue.class
 people\Sheriff.class
 places\Batiment.class
@@ -9,7 +10,6 @@ places\Banque.class
 people\HorsLaLoi.class
 places\Prison.class
 people\Barman.class
-people\Cowboy.class
 com\mycompany\westernstories\WesternStories.class
 people\Indien.class
 people\Bandit.class

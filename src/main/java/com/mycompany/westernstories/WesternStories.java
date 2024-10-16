@@ -6,7 +6,7 @@ package com.mycompany.westernstories;
 
 import people.Bandit;
 import people.Barman;
-//import people.HorsLaLoi; //interface of Ripoux & Bandot
+//import people.HorsLaLoi; //interface of Ripoux & Bandit
 //import people.Human; //parent of everything
 import people.Indien;
 import people.Marshall;
@@ -28,16 +28,34 @@ import java.util.InputMismatchException;
  * @author Marco
  */
 public class WesternStories {
+    
+    boolean isStoryOver;
+    
+    public WesternStories(){
+        this.isStoryOver = false;
+    }
+    
+    //maybe do a method to check if game over
+    //some utils
+    public void blankLn(int nb){ //nb blank lines in console
+        for(int i = 0; i < nb; i++){
+            System.out.println();  // Print blank lines
+        }
+    }
 
     public static void main(String[] args) {
+        
+        WesternStories myStory = new WesternStories();
+        
         //CHARACTER CREATION
         //name
+        String fullName = "null"; //should be changed in the scanner, but throwing me warning if not put
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
         while (!validInput) { //wait until valid
             try {
                 System.out.print("Enter the name and surname of your character (e.g., Jesse James): ");
-                String fullName = scanner.nextLine();
+                fullName = scanner.nextLine();
                 // Split the input string into name and surname using a space as the delimiter
                 String[] nameParts = fullName.split(" ");
 
@@ -64,6 +82,40 @@ public class WesternStories {
                 System.out.println("Unexpected error. Please try again.");
             }
         }
+        //favDrink
+        String favDrink = "null"; //same than for fullName
+        validInput = false;
+        while (!validInput) { //wait until valid
+            try {
+                System.out.print("Enter your favourite drink between : Beer, Wine, Gin & Whiskey : ");
+                favDrink = scanner.nextLine();
+                // verif valid (+ majs = no problems)
+                favDrink = favDrink.toLowerCase();
+                if (!favDrink.equals("beer") && !favDrink.equals("wine") && !favDrink.equals("gin") && !favDrink.equals("whiskey")){
+                    throw new InputMismatchException("You must enter exactly one of the drinks.");
+                }
+                // Output favdrink
+                System.out.println("Favourite drink: " + favDrink);
+                validInput = true; // Input is valid, exit the loop
+            } catch (InputMismatchException e) {
+                // Handle wrong number of inputs or incorrect format
+                System.out.println("Error: " + e.getMessage() + " Please try again.");
+            } catch (Exception e) {
+                // Handle any other unexpected exceptions
+                System.out.println("Unexpected error. Please try again.");
+            }
+        }
         scanner.close();
+        Bandit player = new Bandit(fullName, favDrink, "player", "");
+        //END CHARACTER CREATION
+        
+        
+        //tests
+        myStory.blankLn(10);
+        System.out.println("player settings:");
+        System.out.println("name " + player.getName());
+        System.out.println("favdrink " + player.getBFav());
+        System.out.println("attribut " + player.getAttribut());
+        System.out.println("nickname " + player.getNickname());
     }
 }

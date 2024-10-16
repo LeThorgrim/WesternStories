@@ -9,4 +9,5 @@ package people;
  * @author Marco
  */
 public interface HorsLaLoi {
+    public void seFaireEmprisonner();
 }
