@@ -1,9 +1,15 @@
+places\Rue.class
 people\Sheriff.class
-people\HorsLaLoi.class
+places\Batiment.class
+places\Lieu.class
 people\Ripoux.class
+people\Humain.class
+places\Saloon.class
+places\Banque.class
+people\HorsLaLoi.class
+places\Prison.class
 people\Barman.class
 people\Cowboy.class
 com\mycompany\westernstories\WesternStories.class
-people\Humain.class
 people\Indien.class
 people\Bandit.class
