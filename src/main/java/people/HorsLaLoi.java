@@ -3,11 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package people;
+import places.Prison;
 
 /**
  *
  * @author Marco
  */
 public interface HorsLaLoi {
-    public void seFaireEmprisonner();
+    public void seFaireEmprisonner(Prison prison);
 }

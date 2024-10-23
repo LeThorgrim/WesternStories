@@ -8,6 +8,6 @@ package places;
  *
  * @author Marco
  */
-public class Rue extends Lieu {
+public class WildWest extends Lieu {
     
 }

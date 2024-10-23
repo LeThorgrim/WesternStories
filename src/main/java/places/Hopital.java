@@ -10,11 +10,11 @@ import people.Bandit;
  *
  * @author Marco
  */
-public class Banque extends Lieu implements Batiment {
+public class Hopital extends Lieu implements Batiment{
     private boolean isStanding;
     
-    public Banque(){ //because it is an unique item, will use only this
-        super("WS Bank");
+    public Hopital(){ //because it is an unique item, will use only this
+        super("WS Hospital");
         this.isStanding = true;
     }
     

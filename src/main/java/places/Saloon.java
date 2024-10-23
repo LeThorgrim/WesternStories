@@ -4,10 +4,28 @@
  */
 package places;
 
+import people.Bandit;
+
 /**
  *
  * @author Marco
  */
-public class Saloon {
+public class Saloon extends Lieu implements Batiment{
+    private boolean isStanding;
     
+    public Saloon(){ //because it is an unique item, will use only this
+        super("The SalNoon");
+        this.isStanding = true;
+    }
+    
+    @Override
+    public void destroyBat(){
+        this.isStanding = false;
+    }
+    @Override
+    public boolean tryEnter(Bandit thePlayer){
+        return true;
+    }
+    
+    public boolean getStanding(){return this.isStanding;}
 }

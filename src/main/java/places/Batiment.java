@@ -3,11 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package places;
+import people.Bandit;
 
 /**
  *
  * @author Marco
  */
-public class Batiment {
-    
+public interface Batiment {
+    public boolean tryEnter(Bandit thePlayer);
+    public void destroyBat();
 }

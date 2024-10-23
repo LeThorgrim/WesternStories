@@ -8,6 +8,16 @@ package places;
  *
  * @author Marco
  */
-public class Lieu {
-    
+public abstract class Lieu {
+        private final String name;
+        
+        public Lieu(){ //shouldnt be used
+            this.name = "null";
+        }
+        
+        public Lieu(String nname){
+            this.name = nname;
+        }
+        
+        public String getName(){return this.name;}
 }

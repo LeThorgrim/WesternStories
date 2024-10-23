@@ -47,7 +47,7 @@ public class WesternStories {
         
         WesternStories myStory = new WesternStories();
         
-        //CHARACTER CREATION
+        //START OF CHARACTER CREATION
         //name
         myStory.blankLn(5);
         String fullName = "null"; //should be changed in the scanner, but throwing me warning if not put
@@ -126,6 +126,19 @@ public class WesternStories {
         myStory.blankLn(5);
         System.out.println("Welcome to Western Stories " + player.getName());
         //END OF CHARACTER CREATION
+        
+        //START OF GENERATION OF THE WORLD
+        //(all the uniques items)
+        //Marshall
+        
+        //Banque
+        
+        //Prison
+        
+        //Barman
+        
+        //Saloon
+        //END OF GENERATION OF THE WORLD
         
         //FOR GARBAGE CLEANER TO DETECT MORE EASILY
         fullName = null;

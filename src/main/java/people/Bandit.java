@@ -4,7 +4,7 @@
  */
 package people;
 
-import people.Humain;
+import places.Prison;
 
 /**
  *
@@ -34,7 +34,7 @@ public class Bandit extends Humain implements HorsLaLoi{
     }
     //overrides hll
     @Override
-    public void seFaireEmprisonner(){ //WIP
+    public void seFaireEmprisonner(Prison prison){ //WIP
         
     }
 }
