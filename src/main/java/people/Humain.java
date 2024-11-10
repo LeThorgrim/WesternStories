@@ -20,7 +20,7 @@ public abstract class Humain {
         this.name = "Jesse James";
         this.boissonFav = "Water";
         this.attribut = "Passive";
-        this.hp = 1;
+        this.hp = 10;
     }
     
     public Humain(String mName, String mFB, String Attribut){ //custom creator

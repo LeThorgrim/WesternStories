@@ -466,7 +466,30 @@ public class WesternStories {
                                 myStory.statsChecker(banditGroup);
                                 break;
                             case "2":
-                                //need to implement
+                                int randomNumber = (int)(Math.random() * 5) + 1; //rdm 1-10
+                                if(randomNumber == 5){ //marshall time
+                                    System.out.println("IT'S THE MARSHALL !!");
+                                    List<Sheriff> tmpGroup = new ArrayList<>();
+                                    Sheriff streetEnemy = new Sheriff();
+                                    tmpGroup.add(streetEnemy);
+                                    Sheriff streetEnemy2 = new Sheriff();
+                                    tmpGroup.add(streetEnemy2);
+                                    Sheriff streetEnemy3 = new Sheriff();
+                                    tmpGroup.add(streetEnemy3);
+                                    myStory.banditVsMarshall(banditGroup, tmpGroup, marshall);
+                                } else if(randomNumber == 4 || randomNumber == 3){ //sheriff
+                                    System.out.println("It's just a sheriff");
+                                    List<Sheriff> tmpGroup = new ArrayList<>();
+                                    Sheriff streetEnemy = new Sheriff();
+                                    tmpGroup.add(streetEnemy);
+                                    myStory.banditVsSheriff(banditGroup, tmpGroup);
+                                } else{ //some cow boy bandit
+                                    System.out.println("It's just a bandit");
+                                    List<Bandit> tmpGroup = new ArrayList<>();
+                                    Bandit streetEnemy = new Bandit();
+                                    tmpGroup.add(streetEnemy);
+                                    myStory.banditVsBandit(banditGroup, tmpGroup);
+                                }
                                 break;
                             case "3":
                                 int tmp = myStory.moveGroup(location, myStory);
