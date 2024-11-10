@@ -33,6 +33,13 @@ public class WesternStories {
     
     public boolean getEnded(){return this.isStoryOver;}
 
+    //did something criminal
+    public void criminalDid(Bandit player){
+        if(!player.getWanted()){
+            player.setWanted();
+        }
+    }
+    
     // Utility method to print blank lines
     public void blankLn(int nb) {
         for (int i = 0; i < nb; i++) {
@@ -65,13 +72,13 @@ public class WesternStories {
             case 1: //you can move everywhere from streets
                 while(true){
                     try{
-                        System.out.print("I can go to: ");
-                        System.out.print("1/ the Wild West");
-                        System.out.print("2/ the SalNoon Saloon");
-                        System.out.print("3/ the Bank");
-                        System.out.print("4/ the Prison");
-                        System.out.print("5/ the Hospital");
-                        System.out.print("6/ I can think of something else to do here");
+                        System.out.println("I can go to: ");
+                        System.out.println("1/ the Wild West");
+                        System.out.println("2/ the SalNoon Saloon");
+                        System.out.println("3/ the Bank");
+                        System.out.println("4/ the Prison");
+                        System.out.println("5/ the Hospital");
+                        System.out.println("6/ I can think of something else to do here");
                         System.out.print("What should I do ?");
                         String choiceInput = locScanner.nextLine().trim();
                         currentStory.blankLn(1);
@@ -106,7 +113,7 @@ public class WesternStories {
                         System.out.println("I can go to: ");
                         System.out.println("1/ Streets of Western Story");
                         System.out.println("2/ I can think of something else to do here");
-                        System.out.println("What should I do ?");
+                        System.out.print("What should I do ?");
                         String choiceInput = locScanner.nextLine().trim();
                         currentStory.blankLn(1);
                         if(!choiceInput.equals("1") && !choiceInput.equals("2")){
@@ -227,7 +234,8 @@ public class WesternStories {
                 System.out.println("I'm in WestStory hospital, what should I do?");
                 System.out.println("1/ Check my stats");
                 System.out.println(banditGroup.size() == 1 ? "2/ Heal myself" : "2/ Heal myself and the group");
-                System.out.println("3/ Move elsewhere");
+                System.out.println("3/ Burn down the hospital");
+                System.out.println("4/ Move elsewhere");
 
                 validInput = false;
                 while (!validInput) {
@@ -241,9 +249,22 @@ public class WesternStories {
                                 myStory.statsChecker(banditGroup);
                                 break;
                             case "2":
-                                myStory.healGroup(banditGroup);
+                                if(hospital.getStanding()){ //check if the hospital is destroyed
+                                    myStory.healGroup(banditGroup); //heal if not
+                                }
+                                else{
+                                    System.out.println("I can't the hospital is destroyed");
+                                }
                                 break;
                             case "3":
+                                if(hospital.getStanding()){
+                                    hospital.destroyBat();
+                                    myStory.criminalDid(player);
+                                }else{
+                                    System.out.println("The hospital is already destroyed!");
+                                }
+                                break;
+                            case "4":
                                 int tmp = myStory.moveGroup(location, myStory);
                                 if(tmp != 0){ //return code 0 is not moving
                                     location = tmp;

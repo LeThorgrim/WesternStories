@@ -20,6 +20,9 @@ public class Hopital extends Lieu implements Batiment{
     
     @Override
     public void destroyBat(){
+        System.out.println("");
+        System.out.println("The hospital is destroyed");
+        System.out.println("");
         this.isStanding = false;
     }
     @Override
