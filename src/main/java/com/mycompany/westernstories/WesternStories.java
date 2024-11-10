@@ -34,20 +34,100 @@ public class WesternStories {
     public boolean getEnded(){return this.isStoryOver;}
 
     // Utility method to print blank lines
-    public static void blankLn(int nb) {
+    public void blankLn(int nb) {
         for (int i = 0; i < nb; i++) {
             System.out.println();
         }
     }
 
     // Method to check the stats of the bandit group
-    public static void statsChecker(List<Bandit> group) {
+    public void statsChecker(List<Bandit> group) {
         System.out.println("Your group is composed of:");
         for (int i = 0; i < group.size(); i++) {
             System.out.println(group.get(i).getName() + " :" + group.get(i).getHP() + " HP");
         }
     }
+    
+    // Method to heal the bandit group
+    public void healGroup(List<Bandit> group) {
+        System.out.println("Healing...");
+        for (int i = 0; i < group.size(); i++) {
+            group.get(i).setHP(10);
+        }
+        System.out.println("Healed");
+    }
 
+    //Method to handle the moving from a place to an other
+    // 1: streets / 2: saloon / 3: bank / 4: prison / 5: hospital / 6: wild west
+    public int moveGroup(int currentLoc, WesternStories currentStory) {
+        Scanner locScanner = new Scanner(System.in);
+        switch (currentLoc) {
+            case 1: //you can move everywhere from streets
+                while(true){
+                    try{
+                        System.out.print("I can go to: ");
+                        System.out.print("1/ the Wild West");
+                        System.out.print("2/ the SalNoon Saloon");
+                        System.out.print("3/ the Bank");
+                        System.out.print("4/ the Prison");
+                        System.out.print("5/ the Hospital");
+                        System.out.print("6/ I can think of something else to do here");
+                        System.out.print("What should I do ?");
+                        String choiceInput = locScanner.nextLine().trim();
+                        currentStory.blankLn(1);
+                        if(!choiceInput.equals("1") && !choiceInput.equals("2") 
+                                && !choiceInput.equals("3") && !choiceInput.equals("4") 
+                                && !choiceInput.equals("5") && !choiceInput.equals("6")){
+                            throw new InputMismatchException("You must enter a valid choice.");
+                        }
+                        switch (choiceInput) {
+                            case "1":
+                                return 6;
+                            case "2":
+                                return 2;
+                            case "3":
+                                return 3;
+                            case "4":
+                                return 4;
+                            case "5":
+                                return 5;
+                            default:
+                                return 0; // cancel
+                        }
+                    }catch (InputMismatchException e) {
+                        System.out.println("Error: " + e.getMessage() + " Please try again.");
+                    } catch (Exception e) {
+                        System.out.println("Unexpected error. Please try again.");
+                    }
+                }
+            default: //everywhere else -> streets
+                while(true){
+                    try{
+                        System.out.println("I can go to: ");
+                        System.out.println("1/ Streets of Western Story");
+                        System.out.println("2/ I can think of something else to do here");
+                        System.out.println("What should I do ?");
+                        String choiceInput = locScanner.nextLine().trim();
+                        currentStory.blankLn(1);
+                        if(!choiceInput.equals("1") && !choiceInput.equals("2")){
+                            throw new InputMismatchException("You must enter a valid choice.");
+                        }
+                        if(choiceInput.equals("1")){
+                            return 1; //streets
+                        }else{
+                            return 0; //cancel
+                        }
+                    }catch (InputMismatchException e) {
+                        System.out.println("Error: " + e.getMessage() + " Please try again.");
+                    } catch (Exception e) {
+                        System.out.println("Unexpected error. Please try again.");
+                    }
+                }
+        }
+    }
+    
+    
+    
     public static void main(String[] args) {
         WesternStories myStory = new WesternStories();
 
@@ -120,7 +200,7 @@ public class WesternStories {
         Bandit player = new Bandit(fullName, favDrink, "player", "");
 
         myStory.blankLn(5);
-        System.out.println("Welcome to Western Stories, " + player.getName() + ", it's time for you to write it!");
+        System.out.println("Welcome to WestStory, " + player.getName() + ", it's time for you to write it!");
 
         // Start setting up the game world
         Marshall marshall = new Marshall();
@@ -132,7 +212,7 @@ public class WesternStories {
         Rue street = new Rue();
         WildWest wildWest = new WildWest();
 
-        int location = 5; // Start at hospital
+        int location = 5; // Start at hospital // 1: streets / 2: saloon / 3: bank / 4: prison / 5: hospital / 6: wild west
         List<Bandit> banditGroup = new ArrayList<>();
         banditGroup.add(player);
 
@@ -142,7 +222,7 @@ public class WesternStories {
         // Main game loop
         while (!myStory.getEnded()) {
             // Display actions based on location
-            if (location == 5) { // In the streets
+            if (location == 5) { // In the hospital
                 myStory.blankLn(1);
                 System.out.println("I'm in WestStory hospital, what should I do?");
                 System.out.println("1/ Check my stats");
@@ -153,22 +233,21 @@ public class WesternStories {
                 while (!validInput) {
                     System.out.print("I choose: ");
                     String choiceInput = scanner.nextLine().trim();
-                    blankLn(1);
+                    myStory.blankLn(1);
                     
                     try {
                         switch (choiceInput) {
                             case "1":
-                                statsChecker(banditGroup);
+                                myStory.statsChecker(banditGroup);
                                 break;
                             case "2":
-                                System.out.println("Healing...");
-                                Thread.sleep(1000);
-                                //fonction
-                                System.out.println("Healed");
+                                myStory.healGroup(banditGroup);
                                 break;
                             case "3":
-                                System.out.println("Moving...");
-                                // Implement movement logic
+                                int tmp = myStory.moveGroup(location, myStory);
+                                if(tmp != 0){ //return code 0 is not moving
+                                    location = tmp;
+                                }
                                 break;
                             default:
                                 throw new InputMismatchException("You must enter a valid choice.");
