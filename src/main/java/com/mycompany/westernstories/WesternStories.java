@@ -31,6 +31,18 @@ public class WesternStories {
         this.isStoryOver = false;
     }
     
+    public void storyEnd(){
+        this.isStoryOver = true;
+    }
+    
+    public static void waitX(int ms){
+        try {
+            Thread.sleep(ms); // Waits for 2 seconds
+        } catch (InterruptedException e) {
+            System.out.println("error: sleep interrupted.");
+        }
+    }
+    
     public boolean getEnded(){return this.isStoryOver;}
 
     //did something criminal
@@ -133,7 +145,162 @@ public class WesternStories {
         }
     }
     
+    //fights will be slightly rigged toward playar (shoot first) & very basic
+    //turn by turn shoots, last in each group gets shoot
+    //those who have guns shoot -3, indians shoot -1 but are a lot usually
+    public void banditVsBandit(List<Bandit> playerGroup, List<Bandit> ennemyGroup){
+        waitX(1000);
+        List<String> casualties = new ArrayList<>();
+        while(!playerGroup.isEmpty() && !ennemyGroup.isEmpty()){
+            for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
+                ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
+                if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
+                    ennemyGroup.remove(ennemyGroup.size()-1);
+                    System.out.println("A body drops in the ennemy side!");
+                }
+            }
+            for(int i = 0; i<ennemyGroup.size(); i++){ //ennemy turn
+                playerGroup.get(playerGroup.size()-1).rmvHP(3); //remove 3hp
+                if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
+                    casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
+                    playerGroup.remove(playerGroup.size()-1);
+                    System.out.println("A body drops in our side!");
+                }
+            }
+        }
+        //fight has ended
+        if(casualties.isEmpty()){
+            System.out.println("Everyone is alive on our side, not like those bastards..");
+        } else{
+            System.out.println("The fight was intense, we have lost:");
+            for(int i = 0; i<casualties.size(); i++){
+                System.out.println(casualties.get(i));
+            }
+        }
+    }
     
+    public void banditVsIndian(List<Bandit> playerGroup, List<Indien> ennemyGroup){
+        List<String> casualties = new ArrayList<>();
+        while(!playerGroup.isEmpty() && !ennemyGroup.isEmpty()){
+            waitX(1000);
+            for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
+                ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
+                if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
+                    ennemyGroup.remove(ennemyGroup.size()-1);
+                    System.out.println("A body drops in the ennemy side!");
+                }
+            }
+            for(int i = 0; i<ennemyGroup.size(); i++){ //ennemy turn
+                playerGroup.get(playerGroup.size()-1).rmvHP(1); //remove 1hp (indians)
+                if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
+                    casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
+                    playerGroup.remove(playerGroup.size()-1);
+                    System.out.println("A body drops in our side!");
+                }
+            }
+        }
+        //fight has ended
+        if(casualties.isEmpty()){
+            System.out.println("Everyone is alive on our side, not like those bastards..");
+        } else{
+            System.out.println("The fight was intense, we have lost:");
+            for(int i = 0; i<casualties.size(); i++){
+                System.out.println(casualties.get(i));
+            }
+        }
+    }
+    
+    public void banditVsSheriff(List<Bandit> playerGroup, List<Sheriff> ennemyGroup){
+        List<String> casualties = new ArrayList<>();
+        while(!playerGroup.isEmpty() && !ennemyGroup.isEmpty()){
+            waitX(1000);
+            for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
+                ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
+                if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
+                    ennemyGroup.remove(ennemyGroup.size()-1);
+                    System.out.println("A body drops in the ennemy side!");
+                }
+            }
+            for(int i = 0; i<ennemyGroup.size(); i++){ //ennemy turn
+                playerGroup.get(playerGroup.size()-1).rmvHP(3); //remove 3hp 
+                if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
+                    casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
+                    playerGroup.remove(playerGroup.size()-1);
+                    System.out.println("A body drops in our side!");
+                }
+            }
+        }
+        //fight has ended
+        if(casualties.isEmpty()){
+            System.out.println("Everyone is alive on our side, not like those bastards..");
+        } else{
+            System.out.println("The fight was intense, we have lost:");
+            for(int i = 0; i<casualties.size(); i++){
+                System.out.println(casualties.get(i));
+            }
+        }
+    }
+    
+    //while sherrifs are alive, marshall will not get shot
+    public void banditVsMarshall(List<Bandit> playerGroup, List<Sheriff> ennemyGroup, Marshall marshall){
+        List<String> casualties = new ArrayList<>();
+        while(!playerGroup.isEmpty() && !ennemyGroup.isEmpty()){
+            waitX(1000);
+            for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
+                ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
+                if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
+                    ennemyGroup.remove(ennemyGroup.size()-1);
+                    System.out.println("A body drops in the ennemy side!");
+                }
+            }
+            for(int i = 0; i<ennemyGroup.size(); i++){ //ennemy turn
+                playerGroup.get(playerGroup.size()-1).rmvHP(1); //remove 1hp (indians)
+                if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
+                    casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
+                    playerGroup.remove(playerGroup.size()-1);
+                    System.out.println("A body drops in our side!");
+                }
+            }
+        }
+        if(!playerGroup.isEmpty()){ //check if still alive
+            waitX(1000);
+            System.out.println("All sherrifs are dead, only remains the Marshall standing");
+            waitX(2000);
+            System.out.println("I look around, we are only " + playerGroup.size() + " left");
+            waitX(2000);
+            System.out.println("The fight continues");
+            while(!playerGroup.isEmpty() && marshall.getHP()>0){
+                for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
+                    marshall.rmvHP(3); //remove 3hp
+                    if(marshall.getHP() == 0){
+                        waitX(2000);
+                        System.out.println("The marshall drops on the floor..");
+                        waitX(2000);
+                        System.out.println("He's dead ! We won !");
+                    }
+                    else{
+                        playerGroup.get(playerGroup.size()-1).rmvHP(3); //remove 3hp
+                        if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
+                            casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
+                            playerGroup.remove(playerGroup.size()-1);
+                            System.out.println("A body drops in our side!");
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+        //fight has ended
+        if(casualties.isEmpty()){
+            System.out.println("Everyone is alive on our side, not like those bastards..");
+        } else{
+            System.out.println("The fight was intense, we have lost:");
+            for(int i = 0; i<casualties.size(); i++){
+                System.out.println(casualties.get(i));
+            }
+        }
+    }
     
     public static void main(String[] args) {
         WesternStories myStory = new WesternStories();
@@ -475,7 +642,13 @@ public class WesternStories {
                     }
                 }
             }
-            // Implement additional location handling as needed
+            //storyEnd checks
+            //bad ending
+            if (player.getHP() <= 0) {
+                myStory.storyEnd();  // End the game when the player has no HP left
+            }
+            //good ending
+            //todo
         }
 
         scanner.close();

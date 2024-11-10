@@ -8,6 +8,14 @@ package people;
  *
  * @author Marco
  */
-public class Indien {
-    
+public class Indien extends Humain{
+        //overrides humain
+    @Override
+    protected void parle(String text){ //pour la console ex: "Shériff John: text"
+        System.out.print("Bandit "+ this.getName() + ":");
+    }
+    @Override
+    protected void presente(){
+        System.out.print("I'm "+ this.getName());
+    }
 }
