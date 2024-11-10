@@ -9,5 +9,7 @@ package places;
  * @author Marco
  */
 public class WildWest extends Lieu {
-    
+    public WildWest(){
+        super("Wild West");
+    }
 }

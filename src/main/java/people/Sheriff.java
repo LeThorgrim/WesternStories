@@ -8,6 +8,21 @@ package people;
  *
  * @author Marco
  */
-public class Sheriff {
+public class Sheriff extends Humain {
     
+    public Sheriff(){
+        super();
+    }
+    public Sheriff(String mName, String mFB, String Attribut){ //custom creator
+        super(mName, mFB, Attribut);
+    }
+    
+    @Override
+    protected void parle(String text){ //pour la console ex: "Shériff John: text"
+        System.out.print("Sheriff "+ this.getName() + ":");
+    }
+    @Override
+    protected void presente(){
+        System.out.print("I'm officer "+ this.getName());
+    }
 }

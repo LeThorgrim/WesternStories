@@ -9,5 +9,7 @@ package places;
  * @author Marco
  */
 public class Rue extends Lieu {
-    
+    public Rue(){ //because it is an unique item, will use only this
+        super("Streets");
+    }
 }
