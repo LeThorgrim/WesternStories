@@ -46,6 +46,9 @@ public abstract class Humain {
     private boolean isValidDrink(String drink) {
         return drink.equals("beer") || drink.equals("wine") || drink.equals("gin") || drink.equals("whiskey");
     }
+    public void setName(String name){
+        this.boissonFav = name;
+    }
     public void setFavDrink(String favDr){
         if(isValidDrink(favDr)){
             this.boissonFav = favDr;

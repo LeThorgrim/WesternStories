@@ -10,5 +10,5 @@ import places.Prison;
  * @author Marco
  */
 public interface HorsLaLoi {
-    public void seFaireEmprisonner(Prison prison);
+    public void seFaireEmprisonner();
 }

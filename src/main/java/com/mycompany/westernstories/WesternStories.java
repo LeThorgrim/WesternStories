@@ -6,6 +6,7 @@ import people.Indien;
 import people.Marshall;
 import people.Ripoux;
 import people.Sheriff;
+import people.BanditNames;
 
 import places.Banque;
 import places.Prison;
@@ -18,6 +19,7 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 
@@ -44,6 +46,17 @@ public class WesternStories {
     }
     
     public boolean getEnded(){return this.isStoryOver;}
+    
+    //to use the enumeration class of bandit names
+    public static BanditNames getRandomBandit() {
+        // Get all values of the BanditNames enum
+        BanditNames[] bandits = BanditNames.values();
+        // Generate a random index between 0 and the number of bandits - 1
+        Random random = new Random();
+        int randomIndex = random.nextInt(bandits.length);
+        // Return the bandit at the randomly generated index
+        return bandits[randomIndex];
+    }
 
     //did something criminal
     public void criminalDid(Bandit player){
@@ -210,7 +223,7 @@ public class WesternStories {
         }
     }
     
-    public void banditVsSheriff(List<Bandit> playerGroup, List<Sheriff> ennemyGroup){
+    public void banditVsSheriff(Bandit player, List<Bandit> playerGroup, List<Sheriff> ennemyGroup){
         List<String> casualties = new ArrayList<>();
         while(!playerGroup.isEmpty() && !ennemyGroup.isEmpty()){
             waitX(1000);
@@ -237,6 +250,13 @@ public class WesternStories {
             System.out.println("The fight was intense, we have lost:");
             for(int i = 0; i<casualties.size(); i++){
                 System.out.println(casualties.get(i));
+            }
+            System.out.println("");
+            if(player.getHP() == 0){ //normally dead in action
+                playerGroup.add(player);
+                System.out.println("You are lucky to be alive, the officers have healed you and put you to jail.");
+                player.addHP(1);
+                player.seFaireEmprisonner();
             }
         }
     }
@@ -288,7 +308,7 @@ public class WesternStories {
                     }
                 }
             }
-            
+
         }
         
         //fight has ended
@@ -482,7 +502,7 @@ public class WesternStories {
                                     List<Sheriff> tmpGroup = new ArrayList<>();
                                     Sheriff streetEnemy = new Sheriff();
                                     tmpGroup.add(streetEnemy);
-                                    myStory.banditVsSheriff(banditGroup, tmpGroup);
+                                    myStory.banditVsSheriff(player, banditGroup, tmpGroup);
                                 } else{ //some cow boy bandit
                                     System.out.println("It's just a bandit");
                                     List<Bandit> tmpGroup = new ArrayList<>();
@@ -490,6 +510,8 @@ public class WesternStories {
                                     tmpGroup.add(streetEnemy);
                                     myStory.banditVsBandit(banditGroup, tmpGroup);
                                 }
+                                //criminalUpdate
+                                myStory.criminalDid(player);
                                 break;
                             case "3":
                                 int tmp = myStory.moveGroup(location, myStory);
@@ -566,6 +588,46 @@ public class WesternStories {
                                 break;
                             case "2":
                                 //1st : fight with 2-4 guard; 2nd some prisonners join you
+                                int randomNumber = (int)(Math.random() * 3) + 2; // 2 to 4
+                                System.out.println("There are "+randomNumber+" sherrifs coming to stop you!");
+                                List<Sheriff> tmpGroup = new ArrayList<>();
+                                Sheriff streetEnemy = new Sheriff();
+                                tmpGroup.add(streetEnemy);
+                                Sheriff streetEnemy2 = new Sheriff();
+                                tmpGroup.add(streetEnemy2);
+                                if(randomNumber >= 3){
+                                    Sheriff streetEnemy3 = new Sheriff();
+                                    tmpGroup.add(streetEnemy3);
+                                }
+                                if(randomNumber >= 4){
+                                    Sheriff streetEnemy4 = new Sheriff();
+                                    tmpGroup.add(streetEnemy4);
+                                }
+                                myStory.banditVsSheriff(player, banditGroup, tmpGroup);
+                                //System.out.println("test");
+                                player.getName(); //this gets the garbage cleaner to not delete it it seems :D
+                                if(player.getHP()>0 && !player.getJail()){
+                                    int randomNumber2 = (int)(Math.random() * 1) + 2; // 2 to 3
+                                    System.out.println("The guards are dead, " + randomNumber2 + " bandits join you.");
+                                    // Get a random bandit name and add x2-3
+                                    BanditNames randomBandit = getRandomBandit();
+                                    Bandit jail1 = new Bandit();
+                                    jail1.setName(randomBandit.getFullName());
+                                    banditGroup.add(jail1);
+                                    
+                                    randomBandit = getRandomBandit();
+                                    Bandit jail2 = new Bandit();
+                                    jail2.setName(randomBandit.getFullName());
+                                    banditGroup.add(jail2);
+                                    
+                                    if(randomNumber2 == 3){
+                                        randomBandit = getRandomBandit();
+                                        Bandit jail3 = new Bandit();
+                                        jail3.setName(randomBandit.getFullName());
+                                        banditGroup.add(jail3);
+                                    }
+                                    
+                                }
                                 break;
                             case "3":
                                 int tmp = myStory.moveGroup(location, myStory);
@@ -666,9 +728,15 @@ public class WesternStories {
                 }
             }
             //storyEnd checks
-            //bad ending
+            //bad ending (player dead)
             if (player.getHP() <= 0) {
+                System.out.println("You are dead !");
                 myStory.storyEnd();  // End the game when the player has no HP left
+            }
+            //bad ending in jail
+            if(player.getJail()){
+                System.out.println("You are in jail !");
+                myStory.storyEnd();
             }
             //good ending
             //todo
