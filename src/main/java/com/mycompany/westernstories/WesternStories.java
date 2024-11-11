@@ -164,20 +164,24 @@ public class WesternStories {
     public void banditVsBandit(List<Bandit> playerGroup, List<Bandit> ennemyGroup){
         waitX(1000);
         List<String> casualties = new ArrayList<>();
-        while(!playerGroup.isEmpty() && !ennemyGroup.isEmpty()){
+        while(!ennemyGroup.isEmpty() && !ennemyGroup.isEmpty()){
             for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
+                if(!playerGroup.isEmpty()){
                 ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
                 if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
                     ennemyGroup.remove(ennemyGroup.size()-1);
                     System.out.println("A body drops in the ennemy side!");
                 }
+                }
             }
             for(int i = 0; i<ennemyGroup.size(); i++){ //ennemy turn
-                playerGroup.get(playerGroup.size()-1).rmvHP(3); //remove 3hp
-                if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
-                    casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
-                    playerGroup.remove(playerGroup.size()-1);
-                    System.out.println("A body drops in our side!");
+                if(!playerGroup.isEmpty()){
+                    playerGroup.get(playerGroup.size()-1).rmvHP(3); //remove 3hp
+                    if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
+                        casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
+                        playerGroup.remove(playerGroup.size()-1);
+                        System.out.println("A body drops in our side!");
+                    }
                 }
             }
         }
@@ -197,18 +201,22 @@ public class WesternStories {
         while(!playerGroup.isEmpty() && !ennemyGroup.isEmpty()){
             waitX(1000);
             for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
-                ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
-                if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
-                    ennemyGroup.remove(ennemyGroup.size()-1);
-                    System.out.println("A body drops in the ennemy side!");
+                if(!ennemyGroup.isEmpty()){
+                    ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
+                    if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
+                        ennemyGroup.remove(ennemyGroup.size()-1);
+                        System.out.println("A body drops in the ennemy side!");
+                    }
                 }
             }
             for(int i = 0; i<ennemyGroup.size(); i++){ //ennemy turn
-                playerGroup.get(playerGroup.size()-1).rmvHP(1); //remove 1hp (indians)
-                if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
-                    casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
-                    playerGroup.remove(playerGroup.size()-1);
-                    System.out.println("A body drops in our side!");
+                if(!playerGroup.isEmpty()){
+                    playerGroup.get(playerGroup.size()-1).rmvHP(1); //remove 1hp (indians)
+                    if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
+                        casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
+                        playerGroup.remove(playerGroup.size()-1);
+                        System.out.println("A body drops in our side!");
+                    }
                 }
             }
         }
@@ -223,36 +231,42 @@ public class WesternStories {
         }
     }
     
-    public void banditVsSheriff(Bandit player, List<Bandit> playerGroup, List<Sheriff> ennemyGroup){
+    public void banditVsSheriff(Bandit player, List<Bandit> playerGroup, List<Sheriff> ennemyGroup) {
         List<String> casualties = new ArrayList<>();
-        while(!playerGroup.isEmpty() && !ennemyGroup.isEmpty()){
+        while (!playerGroup.isEmpty() && !ennemyGroup.isEmpty()) {
             waitX(1000);
-            for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
-                ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
-                if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
-                    ennemyGroup.remove(ennemyGroup.size()-1);
-                    System.out.println("A body drops in the ennemy side!");
+            for (int i = 0; i < playerGroup.size(); i++) { // player group turn
+                if(!ennemyGroup.isEmpty()){
+                    ennemyGroup.get(ennemyGroup.size() - 1).rmvHP(3); // remove 3hp
+                    if (ennemyGroup.get(ennemyGroup.size() - 1).getHP() == 0) {
+                        ennemyGroup.remove(ennemyGroup.size() - 1);
+                        System.out.println("A body drops in the enemy side!");
+                    }
                 }
             }
-            for(int i = 0; i<ennemyGroup.size(); i++){ //ennemy turn
-                playerGroup.get(playerGroup.size()-1).rmvHP(3); //remove 3hp 
-                if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
-                    casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
-                    playerGroup.remove(playerGroup.size()-1);
-                    System.out.println("A body drops in our side!");
+            for (int i = 0; i < ennemyGroup.size(); i++) { // enemy turn
+                if(!playerGroup.isEmpty()){
+                    playerGroup.get(playerGroup.size() - 1).rmvHP(3); // remove 3hp
+                    if (playerGroup.get(playerGroup.size() - 1).getHP() == 0) {
+                        casualties.add(playerGroup.get(playerGroup.size() - 1).getName()); // name of the dead
+                        playerGroup.remove(playerGroup.size() - 1);
+                        System.out.println("A body drops in our side!");
+                    }
                 }
+                
             }
         }
-        //fight has ended
-        if(casualties.isEmpty()){
-            System.out.println("Everyone is alive on our side, not like those bastards..");
-        } else{
+        System.out.println("tt");
+        // fight has ended
+        if (casualties.isEmpty()) {
+            System.out.println("Everyone is alive on our side, not like those bastards...");
+        } else {
             System.out.println("The fight was intense, we have lost:");
-            for(int i = 0; i<casualties.size(); i++){
-                System.out.println(casualties.get(i));
+            for (String name : casualties) {
+                System.out.println(name);
             }
-            System.out.println("");
-            if(player.getHP() == 0){ //normally dead in action
+            System.out.println();
+            if (player.getHP() == 0) { // normally dead in action
                 playerGroup.add(player);
                 System.out.println("You are lucky to be alive, the officers have healed you and put you to jail.");
                 player.addHP(1);
@@ -267,18 +281,22 @@ public class WesternStories {
         while(!playerGroup.isEmpty() && !ennemyGroup.isEmpty()){
             waitX(1000);
             for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
-                ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
-                if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
-                    ennemyGroup.remove(ennemyGroup.size()-1);
-                    System.out.println("A body drops in the ennemy side!");
+                if(!ennemyGroup.isEmpty()){
+                    ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
+                    if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
+                        ennemyGroup.remove(ennemyGroup.size()-1);
+                        System.out.println("A body drops in the ennemy side!");
+                    }
                 }
             }
             for(int i = 0; i<ennemyGroup.size(); i++){ //ennemy turn
-                playerGroup.get(playerGroup.size()-1).rmvHP(1); //remove 1hp (indians)
-                if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
-                    casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
-                    playerGroup.remove(playerGroup.size()-1);
-                    System.out.println("A body drops in our side!");
+                if(!playerGroup.isEmpty()){
+                    playerGroup.get(playerGroup.size()-1).rmvHP(3); //remove 3hp
+                    if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
+                        casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
+                        playerGroup.remove(playerGroup.size()-1);
+                        System.out.println("A body drops in our side!");
+                    }
                 }
             }
         }
@@ -398,20 +416,18 @@ public class WesternStories {
 
         // Start setting up the game world
         Marshall marshall = new Marshall();
-        Barman barman = new Barman();
+        Barman barman = new Barman(); //inutilisé au final
         Banque bank = new Banque();
         Prison prison = new Prison();
         Saloon saloon = new Saloon();
         Hopital hospital = new Hopital();
-        Rue street = new Rue();
-        WildWest wildWest = new WildWest();
+        Rue street = new Rue(); //de meme
+        WildWest wildWest = new WildWest(); //de meme
+        boolean dartsRecruited = false;
 
         int location = 5; // Start at hospital // 1: streets / 2: saloon / 3: bank / 4: prison / 5: hospital / 6: wild west
         List<Bandit> banditGroup = new ArrayList<>();
         banditGroup.add(player);
-
-        fullName = null;
-        favDrink = null;
 
         // Main game loop
         while (!myStory.getEnded()) {
@@ -705,7 +721,19 @@ public class WesternStories {
                                 myStory.statsChecker(banditGroup);
                                 break;
                             case "2":
-                                //todo
+                                if(dartsRecruited){
+                                    System.out.println("It's just my men playing!");
+                                }else{
+                                    System.out.println("I explain to these two gentlemen my ambitions, they join me.");
+                                    Bandit dart1 = new Bandit();
+                                    BanditNames randomBandit = getRandomBandit();
+                                    dart1.setName(randomBandit.getFullName());
+                                    banditGroup.add(dart1);
+                                    Bandit dart2 = new Bandit();
+                                    randomBandit = getRandomBandit();
+                                    dart2.setName(randomBandit.getFullName());
+                                    banditGroup.add(dart2);
+                                }
                                 break;
                             case "3":
                                 //todo
