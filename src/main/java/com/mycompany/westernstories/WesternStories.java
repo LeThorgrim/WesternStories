@@ -715,8 +715,28 @@ public class WesternStories {
                                 myStory.statsChecker(banditGroup);
                                 break;
                             case "2":
-                                //while moving you can have a fight
-                                //then the camp and you prepare for a battle against the indians
+                                System.out.println("The group and I began our journey to the indian camp");
+                                waitX(2000);
+                                System.out.println("...");
+                                waitX(2000);
+                                System.out.println("...");
+                                waitX(2000);
+                                System.out.println("We are approching the village");
+                                System.out.println("There is a dozen indians");
+                                System.out.println("This will be a bloodbath");
+                                
+                                List<Indien> villageGroup = new ArrayList<>();
+                                
+                                for(int i = 0; i<13; i++){
+                                    Indien tmp = new Indien();
+                                    villageGroup.add(tmp);
+                                }
+                                myStory.banditVsIndian(banditGroup, villageGroup);
+                                if(!banditGroup.isEmpty()){
+                                    System.out.println("It's... it's... it's over ?");
+                                    System.out.println("Let's go home.");
+                                    myStory.villageRaided=true;
+                                }
                                 break;
                             case "3":
                                 int tmp = myStory.moveGroup(location, myStory);
