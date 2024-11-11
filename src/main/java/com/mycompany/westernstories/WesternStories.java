@@ -28,9 +28,16 @@ import java.util.Random;
 public class WesternStories {
 
     private boolean isStoryOver;
+    
+    public boolean marshallDead;
+    public boolean bankRobbed;
+    public boolean villageRaided;
 
     public WesternStories() {
         this.isStoryOver = false;
+        this.marshallDead = false;
+        this.bankRobbed = false;
+        this.villageRaided = false;
     }
     
     public void storyEnd(){
@@ -74,6 +81,11 @@ public class WesternStories {
 
     // Method to check the stats of the bandit group
     public void statsChecker(List<Bandit> group) {
+        System.out.println("Victory conditions:");
+        System.out.println("I killed the marshall: " + this.marshallDead);
+        System.out.println("I robbed the bank: " + this.bankRobbed);
+        System.out.println("I raided the indian village: " + this.villageRaided);
+        System.out.println("");
         System.out.println("Your group is composed of:");
         for (int i = 0; i < group.size(); i++) {
             System.out.println(group.get(i).getName() + " :" + group.get(i).getHP() + " HP");
@@ -256,7 +268,7 @@ public class WesternStories {
                 
             }
         }
-        System.out.println("tt");
+        //System.out.println("tt");
         // fight has ended
         if (casualties.isEmpty()) {
             System.out.println("Everyone is alive on our side, not like those bastards...");
