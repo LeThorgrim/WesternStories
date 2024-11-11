@@ -727,7 +727,7 @@ public class WesternStories {
                                 
                                 List<Indien> villageGroup = new ArrayList<>();
                                 
-                                for(int i = 0; i<13; i++){
+                                for(int i = 0; i<9; i++){
                                     Indien tmp = new Indien();
                                     villageGroup.add(tmp);
                                 }
