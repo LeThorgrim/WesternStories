@@ -66,11 +66,11 @@ public class WesternStories {
     }
 
     //did something criminal
-    public void criminalDid(Bandit player){
+    /*public void criminalDid(Bandit player){
         if(!player.getWanted()){
             player.setWanted();
         }
-    }
+    }*/
     
     // Utility method to print blank lines
     public void blankLn(int nb) {
@@ -178,12 +178,12 @@ public class WesternStories {
         List<String> casualties = new ArrayList<>();
         while(!ennemyGroup.isEmpty() && !ennemyGroup.isEmpty()){
             for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
-                if(!playerGroup.isEmpty()){
-                ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
-                if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
-                    ennemyGroup.remove(ennemyGroup.size()-1);
-                    System.out.println("A body drops in the ennemy side!");
-                }
+                if(!ennemyGroup.isEmpty()){
+                    ennemyGroup.get(ennemyGroup.size()-1).rmvHP(3); //remove 3hp
+                    if(ennemyGroup.get(ennemyGroup.size()-1).getHP() == 0){
+                        ennemyGroup.remove(ennemyGroup.size()-1);
+                        System.out.println("A body drops in the ennemy side!");
+                    }
                 }
             }
             for(int i = 0; i<ennemyGroup.size(); i++){ //ennemy turn
@@ -474,7 +474,7 @@ public class WesternStories {
                             case "3":
                                 if(hospital.getStanding()){
                                     hospital.destroyBat();
-                                    myStory.criminalDid(player);
+                                    //myStory.criminalDid(player);
                                 }else{
                                     System.out.println("The hospital is already destroyed!");
                                 }
@@ -514,7 +514,12 @@ public class WesternStories {
                                 myStory.statsChecker(banditGroup);
                                 break;
                             case "2":
-                                int randomNumber = (int)(Math.random() * 5) + 1; //rdm 1-10
+                                int randomNumber;
+                                if(myStory.marshallDead){
+                                    randomNumber = (int)(Math.random() * 5) + 1; //rdm 1-5
+                                }else{
+                                    randomNumber = (int)(Math.random() * 4) + 1; //rdm 1-4
+                                }
                                 if(randomNumber == 5){ //marshall time
                                     System.out.println("IT'S THE MARSHALL !!");
                                     List<Sheriff> tmpGroup = new ArrayList<>();
@@ -525,6 +530,7 @@ public class WesternStories {
                                     Sheriff streetEnemy3 = new Sheriff();
                                     tmpGroup.add(streetEnemy3);
                                     myStory.banditVsMarshall(banditGroup, tmpGroup, marshall);
+                                    myStory.marshallDead = true;
                                 } else if(randomNumber == 4 || randomNumber == 3){ //sheriff
                                     System.out.println("It's just a sheriff");
                                     List<Sheriff> tmpGroup = new ArrayList<>();
@@ -539,7 +545,7 @@ public class WesternStories {
                                     myStory.banditVsBandit(banditGroup, tmpGroup);
                                 }
                                 //criminalUpdate
-                                myStory.criminalDid(player);
+                                //myStory.criminalDid(player);
                                 break;
                             case "3":
                                 int tmp = myStory.moveGroup(location, myStory);
@@ -577,7 +583,18 @@ public class WesternStories {
                                 myStory.statsChecker(banditGroup);
                                 break;
                             case "2":
-                                //do some text scripts where you begin a heist, then a gunfight and you leave with the bank in fire
+                                System.out.print("The banker does not opposes me");
+                                System.out.print("My men and I take all the money in the bank");
+                                System.out.print("When leaving, there are 3 officers from the security waiting");
+                                List<Sheriff> bankOfficerGroup = new ArrayList<>();
+                                Sheriff bankSheriff = new Sheriff();
+                                bankOfficerGroup.add(bankSheriff);
+                                Sheriff bankSheriff2 = new Sheriff();
+                                bankOfficerGroup.add(bankSheriff2);
+                                Sheriff bankSheriff3 = new Sheriff();
+                                bankOfficerGroup.add(bankSheriff3);
+                                myStory.banditVsSheriff(player, banditGroup, bankOfficerGroup);
+                                myStory.bankRobbed=true;
                                 break;
                             case "3":
                                 int tmp = myStory.moveGroup(location, myStory);
@@ -790,7 +807,10 @@ public class WesternStories {
                 myStory.storyEnd();
             }
             //good ending
-            //todo
+            if(myStory.bankRobbed && myStory.marshallDead && myStory.villageRaided && player.getHP() > 0){
+                System.out.println("I won ! I will enter history !");
+                myStory.storyEnd();
+            }
         }
 
         scanner.close();
