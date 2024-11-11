@@ -320,22 +320,22 @@ public class WesternStories {
             waitX(2000);
             System.out.println("The fight continues");
             while(!playerGroup.isEmpty() && marshall.getHP()>0){
+                if(marshall.getHP() > 0){
+                    playerGroup.get(playerGroup.size()-1).rmvHP(10); //remove 10hp, marshall is a pro and even shoot first
+                    if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
+                        casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
+                        playerGroup.remove(playerGroup.size()-1);
+                        System.out.println("A body drops in our side!");
+                    }
+                }
                 for(int i = 0; i<playerGroup.size(); i++){ //playergroup turn
                     marshall.rmvHP(3); //remove 3hp
-                    if(marshall.getHP() == 0){
+                }
+                if(marshall.getHP() == 0){
                         waitX(2000);
                         System.out.println("The marshall drops on the floor..");
                         waitX(2000);
                         System.out.println("He's dead ! We won !");
-                    }
-                    else{
-                        playerGroup.get(playerGroup.size()-1).rmvHP(3); //remove 3hp
-                        if(playerGroup.get(playerGroup.size()-1).getHP() == 0){
-                            casualties.add(playerGroup.get(playerGroup.size()-1).getName()); //name of the dead
-                            playerGroup.remove(playerGroup.size()-1);
-                            System.out.println("A body drops in our side!");
-                        }
-                    }
                 }
             }
 
@@ -515,7 +515,7 @@ public class WesternStories {
                                 break;
                             case "2":
                                 int randomNumber;
-                                if(myStory.marshallDead){
+                                if(!myStory.marshallDead){
                                     randomNumber = (int)(Math.random() * 5) + 1; //rdm 1-5
                                 }else{
                                     randomNumber = (int)(Math.random() * 4) + 1; //rdm 1-4
@@ -583,9 +583,14 @@ public class WesternStories {
                                 myStory.statsChecker(banditGroup);
                                 break;
                             case "2":
-                                System.out.print("The banker does not opposes me");
-                                System.out.print("My men and I take all the money in the bank");
-                                System.out.print("When leaving, there are 3 officers from the security waiting");
+                                if(myStory.bankRobbed){
+                                    System.out.println("The bank is cribbled with bullet holes");
+                                    System.out.println("I already robbed it");
+                                    break;
+                                }
+                                System.out.println("The banker does not opposes me");
+                                System.out.println("My men and I take all the money in the bank");
+                                System.out.println("When leaving, there are 3 officers from the security waiting");
                                 List<Sheriff> bankOfficerGroup = new ArrayList<>();
                                 Sheriff bankSheriff = new Sheriff();
                                 bankOfficerGroup.add(bankSheriff);
