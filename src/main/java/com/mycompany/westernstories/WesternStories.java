@@ -736,7 +736,18 @@ public class WesternStories {
                                 }
                                 break;
                             case "3":
-                                //todo
+                                int randomNumber = (int)(Math.random() * 4) + 1; // Generates a number between 1 and 4
+                                if(randomNumber == 1){ // simulate the 1/4 chance to get same favdrink
+                                    System.out.println("I sympathize with a stranger on our love for "+ player.getBFav());
+                                    System.out.println("He agrees to join my group");
+                                    Bandit drink = new Bandit();
+                                    BanditNames randomBandit = getRandomBandit();
+                                    drink.setName(randomBandit.getFullName());
+                                    banditGroup.add(drink);
+                                }else{
+                                    System.out.println("The guy at the table didnt liked "+ player.getBFav());
+                                    System.out.println("Nothing of value happens");
+                                }
                                 break;
                             case "4":
                                 int tmp = myStory.moveGroup(location, myStory);
